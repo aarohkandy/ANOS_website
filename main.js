@@ -1,4 +1,4 @@
-import { supabase } from './supabaseClient.js';
+// import { supabase } from './supabaseClient.js';
 
 // --- Global Elements ---
 const demoStage = document.getElementById('demo-stage');
@@ -6,15 +6,20 @@ const demoStage = document.getElementById('demo-stage');
 // --- Initialization ---
 document.addEventListener('DOMContentLoaded', () => {
     initDemo();
-    setupWaitlist();
+    // setupWaitlist(); // Disabled until build process is set up
     setupScrollAnimations();
 });
 
 function setupScrollAnimations() {
     const reveals = document.querySelectorAll('.reveal');
+
+    // Progressive Enhancement: Only hide elements if JS is running
+    reveals.forEach(el => el.classList.add('reveal-hidden'));
+
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
+                entry.target.classList.remove('reveal-hidden');
                 entry.target.classList.add('active');
             }
         });
@@ -24,6 +29,8 @@ function setupScrollAnimations() {
 }
 
 async function setupWaitlist() {
+    // Supabase logic currently disabled for static deployment compatibility
+    /*
     const form = document.querySelector('.waitlist-form');
     if (!form) return;
 
@@ -53,6 +60,7 @@ async function setupWaitlist() {
             button.disabled = false;
         }
     });
+    */
 }
 
 // --- Scenarios Data ---
@@ -282,7 +290,7 @@ async function runScenario(s) {
             break;
 
         default:
-            // Generic fallback for the other 40 scenarios for brevity
+            // Generic fallback
             showNotif(notif, "Task complete: " + s.a);
             break;
     }
