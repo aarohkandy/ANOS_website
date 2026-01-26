@@ -1,4 +1,3 @@
-import './style.css';
 import { supabase } from './supabaseClient.js';
 
 // --- Global Elements ---
